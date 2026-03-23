@@ -373,7 +373,7 @@
   font-size: 0.92rem;
   font-weight: 700;
   text-align: center;
-  border-left: 1px solid var(--border);
+  border-left: 2px solid var(--border);
 }
 
 .pt-head--edu { color: #0f766e; background: #f0fdfa; }
@@ -405,7 +405,7 @@
   right: 0;
   height: 1px;
   background: var(--border);
-  opacity: 0.45;
+  opacity: 1;
 }
 
 /* ── Year axis ── */
@@ -431,7 +431,7 @@
 /* ── Lane ── */
 .pt-lane {
   position: relative;
-  border-left: 1px solid var(--border);
+  border-left: 2px solid var(--border);
 }
 
 /* ── Bars ── */
