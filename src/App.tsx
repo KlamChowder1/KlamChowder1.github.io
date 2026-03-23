@@ -150,10 +150,17 @@ function App() {
     if (!gridEl) return;
     const barRect = barEl.getBoundingClientRect();
     const gridRect = gridEl.getBoundingClientRect();
-    const top = barRect.top - gridRect.top;
+    let top = barRect.top - gridRect.top;
     let left = barRect.right - gridRect.left + POPOVER_GAP;
     if (left + POPOVER_W > gridRect.width) {
       left = barRect.left - gridRect.left - POPOVER_W - POPOVER_GAP;
+    }
+    // Clamp vertically so popover stays within the viewport
+    const viewportBottom = window.innerHeight;
+    const popoverEstimatedH = 320; // approximate max height
+    const popoverScreenTop = gridRect.top + top;
+    if (popoverScreenTop + popoverEstimatedH > viewportBottom) {
+      top = top - (popoverScreenTop + popoverEstimatedH - viewportBottom) - POPOVER_GAP;
     }
     setPopoverPos({ top: Math.max(0, top), left });
   };
