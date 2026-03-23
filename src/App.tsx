@@ -367,52 +367,56 @@ function App() {
           {/* ── Filter Sidebar ── */}
           <aside className="filter-sidebar">
             <div className="filter-sidebar-inner">
-              <h3 className="filter-title">
-                Filter
-              </h3>
-              <div className="view-toggle">
-                <button
-                  className={`view-toggle-btn${viewMode === 'full' ? ' view-toggle-btn--active' : ''}`}
-                  onClick={() => { setViewMode('full'); setSelectedId(null); setPopoverPos(null); }}
-                >
-                  Full
-                </button>
-                <button
-                  className={`view-toggle-btn${viewMode === 'software' ? ' view-toggle-btn--active' : ''}`}
-                  onClick={() => { setViewMode('software'); setSelectedId(null); setPopoverPos(null); }}
-                >
-                  Software
-                </button>
-              </div>
-              {Object.entries(technicalSkills).map(([category, skills]) => (
-                <div key={category} className="filter-group">
-                  <button
-                    className={`filter-group-head${openCategories[category] ? " filter-group-head--open" : ""}`}
-                    onClick={() => toggleCategory(category)}
-                  >
-                    <span>{category}</span>
-                    <svg className="filter-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
-                  </button>
-                  <div className={`filter-chips-wrapper${openCategories[category] ? " filter-chips-wrapper--open" : ""}`}>
-                    <div className="filter-chips">
-                      {skills.map((skill) => (
-                        <button
-                          key={skill}
-                          className={`filter-chip${activeSkill === skill ? " filter-chip--active" : ""}`}
-                          onClick={() => toggleSkill(skill)}
-                        >
-                          <TechIcon name={skill} size="sm" />
-                          {skill}
-                        </button>
-                      ))}
+              <label className="sw-toggle">
+                <input
+                  type="checkbox"
+                  className="sw-toggle-input"
+                  checked={viewMode === 'software'}
+                  onChange={() => {
+                    const next = viewMode === 'software' ? 'full' : 'software';
+                    setViewMode(next);
+                    setSelectedId(null);
+                    setPopoverPos(null);
+                    if (next === 'full') setActiveSkill(null);
+                    if (next === 'software') setOpenCategories(Object.fromEntries(Object.keys(technicalSkills).map((k) => [k, true])));
+                  }}
+                />
+                <span className="sw-toggle-track"><span className="sw-toggle-thumb" /></span>
+                <span className="sw-toggle-label">Tech Experience Only</span>
+              </label>
+              {viewMode === 'software' && (
+                <>
+                  {Object.entries(technicalSkills).map(([category, skills]) => (
+                    <div key={category} className="filter-group">
+                      <button
+                        className={`filter-group-head${openCategories[category] ? " filter-group-head--open" : ""}`}
+                        onClick={() => toggleCategory(category)}
+                      >
+                        <span>{category}</span>
+                        <svg className="filter-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+                      </button>
+                      <div className={`filter-chips-wrapper${openCategories[category] ? " filter-chips-wrapper--open" : ""}`}>
+                        <div className="filter-chips">
+                          {skills.map((skill) => (
+                            <button
+                              key={skill}
+                              className={`filter-chip${activeSkill === skill ? " filter-chip--active" : ""}`}
+                              onClick={() => toggleSkill(skill)}
+                            >
+                              <TechIcon name={skill} size="sm" />
+                              {skill}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              ))}
-              {activeSkill && (
-                <button className="filter-clear" onClick={() => { setActiveSkill(null); setSelectedId(null); setPopoverPos(null); }}>
-                  Clear filter ✕
-                </button>
+                  ))}
+                  {activeSkill && (
+                    <button className="filter-clear" onClick={() => { setActiveSkill(null); setSelectedId(null); setPopoverPos(null); }}>
+                      Clear filter ✕
+                    </button>
+                  )}
+                </>
               )}
             </div>
           </aside>

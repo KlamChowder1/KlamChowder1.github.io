@@ -155,8 +155,8 @@ const iconMap: Record<string, JSX.Element> = {
   ),
   Grafana: svg(
     <g>
-      <path d="M12 6a6 6 0 1 0 6 6s-1.5-1-1.5-2.5S18 7.5 18 7.5A6 6 0 0 0 12 6z" stroke="currentColor" strokeWidth="1.4" fill="none" />
-      <circle cx="12" cy="12" r="2" fill="currentColor" />
+      <path d="M12 2.5l1.4 2.8 2.8-.8.3 3 3 .8-1.5 2.7 2.2 2-2.5 1.7.5 3-2.9.5-1 2.8H12l-2.3-1.6-2.9.5.5-3-2.5-1.7 2.2-2L5.5 8.3l3-.8.3-3 2.8.8z" stroke="currentColor" strokeWidth="1.1" fill="none" strokeLinejoin="round" />
+      <path d="M14.5 10.5a3 3 0 1 0-1 3.5c-.3-.8-.2-1.5.3-2s1.2-.7 2-.5" stroke="currentColor" strokeWidth="1.2" fill="none" strokeLinecap="round" />
     </g>,
     "Grafana"
   ),
@@ -245,5 +245,3 @@ export const TechIcon: FC<TechIconProps> = ({ name, size = "md" }) => (
     {iconMap[name] ?? fallbackIcon(name)}
   </span>
 );
-
-export const iconNames = Object.keys(iconMap);

@@ -13,27 +13,6 @@ export type TimelineEntry = {
   badge?: string;
 };
 
-const FAR_FUTURE_UTC = Date.UTC(9999, 11, 31);
-
-const toSortableUtc = (date: string): number => {
-  if (date === 'present') return FAR_FUTURE_UTC;
-  const [year, month, day = 1] = date.split('-').map(Number);
-  return Date.UTC(year, month - 1, day);
-};
-
-export function compareTimelineEntries(
-  a: TimelineEntry,
-  b: TimelineEntry,
-): number {
-  const endDiff = toSortableUtc(b.endDate) - toSortableUtc(a.endDate);
-  if (endDiff !== 0) return endDiff;
-
-  const startDiff = toSortableUtc(b.startDate) - toSortableUtc(a.startDate);
-  if (startDiff !== 0) return startDiff;
-
-  return a.id.localeCompare(b.id);
-}
-
 const MONTHS = [
   'January',
   'February',
@@ -366,7 +345,7 @@ export const timelineEntries: TimelineEntry[] = [
       'Viral Voyager – hackseq18 (Oct 2018)',
       'UBC iGEM (Feb – Oct 2018)',
     ],
-    skills: ['Linux'],
+    skills: ['Git', 'Linux'],
   },
   {
     id: 'flux-2017',
