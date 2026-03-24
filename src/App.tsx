@@ -359,7 +359,7 @@ function App() {
       <nav className="nav" aria-label="Profile links">
         <div className="nav-brand">
           <h1 className="nav-name">{personalInfo.name}</h1>
-          <span className="nav-sep">·</span>
+          <span className="nav-sep" aria-hidden="true">|</span>
           <span className="nav-location">{personalInfo.location}</span>
         </div>
         <div className="nav-links">
