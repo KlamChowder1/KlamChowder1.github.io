@@ -62,10 +62,10 @@ export const technicalSkills: Record<string, string[]> = {
     'HTML/CSS',
   ],
   'Database & APIs': [
-    'GraphQL',
     'REST',
-    'MySQL',
+    'GraphQL',
     'PostgreSQL',
+    'MySQL',
     'MongoDB',
     'DynamoDB',
   ],
@@ -226,7 +226,15 @@ export const timelineEntries: TimelineEntry[] = [
     highlights: [
       'Enhanced the BeeBiome platform using Angular, JavaScript, and GCP for bee-related information and metadata queried from the National Center for Biotechnology Information, in collaboration with a research team in Switzerland.',
     ],
-    skills: ['Angular', 'JavaScript', 'HTML/CSS', 'REST', 'Postman', 'GCP', 'Git'],
+    skills: [
+      'Angular',
+      'JavaScript',
+      'HTML/CSS',
+      'REST',
+      'Postman',
+      'GCP',
+      'Git',
+    ],
   },
   {
     id: 'bioconversion',
