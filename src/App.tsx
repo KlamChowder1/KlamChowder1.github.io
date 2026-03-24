@@ -135,6 +135,13 @@ function App() {
     return entries;
   }, [activeSkill, viewMode]);
 
+  const mobileEntries = useMemo(() => {
+    if (viewMode !== 'software') return timelineEntries;
+    return timelineEntries.filter(
+      (e) => (e.skills && e.skills.length > 0) || e.category === 'education'
+    );
+  }, [viewMode]);
+
   const cols = useMemo(
     () => ({
       edu: layout(filteredEntries.filter((e) => colOf(e) === "education")),
@@ -186,6 +193,19 @@ function App() {
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
+  const handleViewModeToggle = () => {
+    const next = viewMode === 'software' ? 'full' : 'software';
+    setViewMode(next);
+    setSelectedId(null);
+    setPopoverPos(null);
+    if (next === 'full') setActiveSkill(null);
+    if (next === 'software') {
+      setOpenCategories(
+        Object.fromEntries(Object.keys(technicalSkills).map((k) => [k, true]))
+      );
+    }
+  };
+
   /* ── Bar renderer ── */
   const COMPACT_THRESHOLD = 30; // px — entries shorter than this get compact single-line text
 
@@ -231,14 +251,7 @@ function App() {
           type="checkbox"
           className="sw-toggle-input"
           checked={viewMode === 'software'}
-          onChange={() => {
-            const next = viewMode === 'software' ? 'full' : 'software';
-            setViewMode(next);
-            setSelectedId(null);
-            setPopoverPos(null);
-            if (next === 'full') setActiveSkill(null);
-            if (next === 'software') setOpenCategories(Object.fromEntries(Object.keys(technicalSkills).map((k) => [k, true])));
-          }}
+          onChange={handleViewModeToggle}
         />
         <span className="sw-toggle-track"><span className="sw-toggle-thumb" /></span>
       </label>
@@ -262,6 +275,17 @@ function App() {
           </a>
         </div>
       </nav>
+
+      <label className="sw-toggle page-toggle-mobile" title="Software Experience Only">
+        <span className="sw-toggle-label">Software Experience Only</span>
+        <input
+          type="checkbox"
+          className="sw-toggle-input"
+          checked={viewMode === 'software'}
+          onChange={handleViewModeToggle}
+        />
+        <span className="sw-toggle-track"><span className="sw-toggle-thumb" /></span>
+      </label>
 
       {/* ══════════════════════════════════════════
           Timeline with Filter Sidebar (Desktop)
@@ -450,7 +474,7 @@ function App() {
           <span className="section-icon">📍</span> Timeline
         </h2>
         <div className="pm-list">
-          {timelineEntries.map((entry) => (
+          {mobileEntries.map((entry) => (
             <div
               key={entry.id}
               className={`pm-card pm-card--${entry.category}`}
@@ -486,14 +510,11 @@ function App() {
               {entry.badge && (
                 <span className="pt-distinction">{entry.badge}</span>
               )}
-              {entry.skills && entry.skills.length > 0 && (
+              {entry.category !== 'education' && entry.skills && entry.skills.length > 0 && (
                 <div className="pm-skills">
                   {entry.skills.map((s) => (
-                    <span
-                      key={s}
-                      className={`skill-pill skill-pill--${entry.category}`}
-                    >
-                      {s}
+                    <span key={s} className="pm-skill-icon" role="img" aria-label={s}>
+                      <TechIcon name={s} size="sm" />
                     </span>
                   ))}
                 </div>
