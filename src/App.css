@@ -1029,11 +1029,30 @@
   }
 
   .page { gap: 0.7rem; }
-  .nav { padding: 0.55rem 0.95rem; }
-  .nav-brand { gap: 0; }
-  .nav-sep,
-  .nav-location { display: none; }
-  .nav-links { gap: 0.4rem; }
+  .nav {
+    gap: 0.55rem;
+    padding: 0.55rem 0.95rem;
+  }
+  .nav-brand {
+    flex: 1;
+    min-width: 0;
+    gap: 0.45rem;
+  }
+  .nav-brand > span:first-child { flex-shrink: 0; }
+  .nav-sep { display: none; }
+  .nav-location {
+    display: block;
+    min-width: 0;
+    max-width: 6.2rem;
+    font-size: 0.66rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav-links {
+    gap: 0.32rem;
+    flex-shrink: 0;
+  }
   .nav-social,
   .nav-resume {
     width: 28px;
