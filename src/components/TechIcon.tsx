@@ -67,6 +67,7 @@ export const TechIcon: FC<TechIconProps> = ({ name, size = "md" }) => {
       title={name}
       data-tech={name}
       style={iconStyle(icon)}
+      aria-hidden="true"
     >
       {icon ? (
         <Icon icon={icon.icon} className="tech-icon-svg" aria-hidden="true" />

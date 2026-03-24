@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import type { CSSProperties, FC, KeyboardEvent } from "react";
+import type { CSSProperties, FC } from "react";
 import type { TimelineCategory } from "../data/experience";
 import { TechIcon } from "./TechIcon";
 
@@ -7,6 +7,7 @@ type ExperienceSkillsProps = {
   skills: string[];
   category: TimelineCategory;
   className: string;
+  label: string;
   mode?: "pill" | "icon";
 };
 
@@ -14,6 +15,7 @@ export const ExperienceSkills: FC<ExperienceSkillsProps> = ({
   skills,
   category,
   className,
+  label,
   mode = "pill",
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -74,18 +76,27 @@ export const ExperienceSkills: FC<ExperienceSkillsProps> = ({
 
     measure();
     const frameId = requestAnimationFrame(measure);
+    const secondFrameId = requestAnimationFrame(() => requestAnimationFrame(measure));
     const resizeObserver =
       typeof ResizeObserver !== "undefined"
         ? new ResizeObserver(() => measure())
         : null;
 
     resizeObserver?.observe(listEl);
+    if (listEl.parentElement) {
+      resizeObserver?.observe(listEl.parentElement);
+    }
+
+    const onResize = () => measure();
+    window.addEventListener("resize", onResize);
 
     return () => {
       cancelAnimationFrame(frameId);
+      cancelAnimationFrame(secondFrameId);
       resizeObserver?.disconnect();
+      window.removeEventListener("resize", onResize);
     };
-  }, [skills, mode]);
+  }, [hasOverflow, skills, mode]);
 
   if (skills.length === 0) return null;
 
@@ -124,25 +135,12 @@ export const ExperienceSkills: FC<ExperienceSkillsProps> = ({
     setIsExpanded((prev) => !prev);
   };
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (!hasOverflow) return;
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      setIsExpanded((prev) => !prev);
-    }
-  };
+  const classes = `${className} experience-skills experience-skills--${mode}${
+    hasOverflow ? " experience-skills--interactive" : ""
+  }${isCollapsed ? " experience-skills--collapsed" : ""}`;
 
-  return (
-    <div
-      className={`${className} experience-skills experience-skills--${mode}${
-        hasOverflow ? " experience-skills--interactive" : ""
-      }${isCollapsed ? " experience-skills--collapsed" : ""}`}
-      role={hasOverflow ? "button" : undefined}
-      tabIndex={hasOverflow ? 0 : undefined}
-      aria-expanded={hasOverflow ? isExpanded : undefined}
-      onClick={hasOverflow ? handleToggle : undefined}
-      onKeyDown={hasOverflow ? handleKeyDown : undefined}
-    >
+  const content = (
+    <>
       <span
         ref={listRef}
         className={`experience-skills-list experience-skills-list--${mode}${
@@ -170,6 +168,22 @@ export const ExperienceSkills: FC<ExperienceSkillsProps> = ({
           ...
         </span>
       </span>
-    </div>
+    </>
   );
+
+  if (hasOverflow) {
+    return (
+      <button
+        type="button"
+        className={classes}
+        aria-expanded={isExpanded}
+        aria-label={`${isExpanded ? "Collapse" : "Expand"} ${label}`}
+        onClick={handleToggle}
+      >
+        {content}
+      </button>
+    );
+  }
+
+  return <div className={classes}>{content}</div>;
 };
