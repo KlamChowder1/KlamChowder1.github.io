@@ -215,7 +215,26 @@ function App() {
 
   return (
     <div className="page">
-      {/* ── Navigation ── */}
+      {/* ── Software toggle (top-right, scrolls away) ── */}
+      <label className="sw-toggle page-toggle" title="Software Experience Only">
+        <span className="sw-toggle-label">Software Experience Only</span>
+        <input
+          type="checkbox"
+          className="sw-toggle-input"
+          checked={viewMode === 'software'}
+          onChange={() => {
+            const next = viewMode === 'software' ? 'full' : 'software';
+            setViewMode(next);
+            setSelectedId(null);
+            setPopoverPos(null);
+            if (next === 'full') setActiveSkill(null);
+            if (next === 'software') setOpenCategories(Object.fromEntries(Object.keys(technicalSkills).map((k) => [k, true])));
+          }}
+        />
+        <span className="sw-toggle-track"><span className="sw-toggle-thumb" /></span>
+      </label>
+
+      {/* ── Navigation (sticky) ── */}
       <nav className="nav">
         <div className="nav-brand">
           <span><b>{personalInfo.name}</b></span>
@@ -239,41 +258,20 @@ function App() {
           Timeline with Filter Sidebar (Desktop)
          ══════════════════════════════════════════ */}
       <section id="timeline" className="section section--wide">
-        {/* Toggle row above timeline */}
-        <div className="tl-toggle-row">
-          <label className="sw-toggle">
-            <input
-              type="checkbox"
-              className="sw-toggle-input"
-              checked={viewMode === 'software'}
-              onChange={() => {
-                const next = viewMode === 'software' ? 'full' : 'software';
-                setViewMode(next);
-                setSelectedId(null);
-                setPopoverPos(null);
-                if (next === 'full') setActiveSkill(null);
-                if (next === 'software') setOpenCategories(Object.fromEntries(Object.keys(technicalSkills).map((k) => [k, true])));
-              }}
-            />
-            <span className="sw-toggle-track"><span className="sw-toggle-thumb" /></span>
-            <span className="sw-toggle-label">Tech Experience Only</span>
-          </label>
-        </div>
-
         <div className="tl-layout">
           {/* ── Timeline ── */}
           <div className="tl-main">
 
             {/* Column headers */}
-            <div className="pt-heads">
+            <div className={`pt-heads${viewMode === 'software' ? ' pt-heads--no-vol' : ''}`}>
               <div className="pt-head-axis" />
               <div className="pt-head pt-head--edu">Education</div>
               <div className="pt-head pt-head--work">Work Experience</div>
-              <div className="pt-head pt-head--vol">Volunteer</div>
+              {viewMode !== 'software' && <div className="pt-head pt-head--vol">Volunteer</div>}
             </div>
 
             {/* Time grid */}
-            <div className="pt-grid" style={{ height: LANE_H }} ref={gridRef}>
+            <div className={`pt-grid${viewMode === 'software' ? ' pt-grid--no-vol' : ''}`} style={{ height: LANE_H }} ref={gridRef}>
               {/* Horizontal year gridlines */}
               <div className="pt-gridlines" aria-hidden="true">
                 {YEARS.map(({ year, top }) => (
@@ -305,11 +303,13 @@ function App() {
               </div>
 
               {/* Volunteer lane */}
-              <div className="pt-lane">
-                {cols.vol.map((e) => (
-                  <Bar key={e.id} e={e} />
-                ))}
-              </div>
+              {viewMode !== 'software' && (
+                <div className="pt-lane">
+                  {cols.vol.map((e) => (
+                    <Bar key={e.id} e={e} />
+                  ))}
+                </div>
+              )}
 
               {/* ── Inline popover ── */}
               {selected && popoverPos && (

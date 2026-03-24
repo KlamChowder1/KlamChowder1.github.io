@@ -37,6 +37,7 @@
   align-items: center;
   gap: 1rem;
   padding: 0.75rem clamp(1.5rem, 5vw, 4rem) 1.5rem;
+  position: relative;
 }
 
 .page > * {
@@ -44,8 +45,19 @@
   max-width: 860px;
 }
 
+.page > .page-toggle {
+  position: absolute;
+  top: 1.75rem;
+  right: clamp(1.5rem, 5vw, 4rem);
+  width: auto;
+  max-width: none;
+  z-index: 99;
+}
+
 .page > .nav {
   max-width: 520px;
+  position: sticky;
+  top: 0.25rem;
 }
 
 .section--wide {
@@ -56,8 +68,6 @@
    Navigation
    ═══════════════════════════════════════════════ */
 .nav {
-  position: sticky;
-  top: 0;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -69,7 +79,6 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
   box-shadow: var(--shadow-md);
-  margin-bottom: 0.35rem;
 }
 
 .nav-brand {
@@ -161,13 +170,6 @@
    Skills (filter sidebar) 
    ═══════════════════════════════════════════════ */
 
-.tl-toggle-row {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 0;
-}
-
-/* Combined layout: sidebar + timeline */
 .tl-layout {
   display: flex;
   gap: 1.5rem;
@@ -200,7 +202,7 @@
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  margin-bottom: 0;
+  margin: 0;
   user-select: none;
 }
 
@@ -371,6 +373,10 @@
   border-radius: var(--radius) var(--radius) 0 0;
 }
 
+.pt-heads--no-vol {
+  grid-template-columns: 52px 0.38fr 0.62fr;
+}
+
 .pt-head-axis { /* spacer for year axis */ }
 
 .pt-head {
@@ -392,6 +398,10 @@
   grid-template-columns: 52px 0.28fr 0.44fr 0.28fr;
   position: relative;
   overflow: visible;
+}
+
+.pt-grid--no-vol {
+  grid-template-columns: 52px 0.38fr 0.62fr;
 }
 
 /* ── Gridlines ── */
