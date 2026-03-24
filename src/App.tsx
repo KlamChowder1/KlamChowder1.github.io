@@ -133,6 +133,8 @@ function App() {
   const popoverRef = useRef<HTMLDivElement>(null);
   const firstFilterGroupRef = useRef<HTMLButtonElement>(null);
   const focusFiltersOnToggleRef = useRef(false);
+  const barRefs = useRef(new Map<string, HTMLButtonElement>());
+  const lastTriggerIdRef = useRef<string | null>(null);
   const lastTriggerRef = useRef<HTMLElement | null>(null);
 
   const toggleCategory = (cat: string) =>
@@ -182,11 +184,20 @@ function App() {
     setSelectedId(null);
     setPopoverPos(null);
     if (restoreFocus) {
-      requestAnimationFrame(() => lastTriggerRef.current?.focus());
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const triggerEl =
+            (lastTriggerIdRef.current
+              ? barRefs.current.get(lastTriggerIdRef.current)
+              : null) ?? lastTriggerRef.current;
+          triggerEl?.focus();
+        });
+      });
     }
   };
 
   const pick = (id: string, barEl: HTMLElement) => {
+    lastTriggerIdRef.current = id;
     lastTriggerRef.current = barEl;
     if (selectedId === id) {
       closeDetails();
@@ -283,6 +294,10 @@ function App() {
     const detailId = `detail-panel-${e.id}`;
     return (
       <button
+        ref={(node) => {
+          if (node) barRefs.current.set(e.id, node);
+          else barRefs.current.delete(e.id);
+        }}
         type="button"
         className={`pt-bar pt-bar--${e.category}${sel ? " pt-bar--sel" : ""}${isCompact ? " pt-bar--compact" : ""}`}
         style={{
