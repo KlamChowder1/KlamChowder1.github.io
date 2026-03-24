@@ -27,6 +27,7 @@ const iconMap = {
   Nuxt: { icon: "simple-icons:nuxt", color: "#00DC82" },
   Python: { icon: "simple-icons:python", color: "#3776AB" },
   PostgreSQL: { icon: "simple-icons:postgresql", color: "#4169E1" },
+  Postman: { icon: "simple-icons:postman", color: "#FF6C37" },
   Redux: { icon: "simple-icons:redux", color: "#764ABC" },
   MySQL: { icon: "simple-icons:mysql", color: "#4479A1" },
   Datadog: { icon: "simple-icons:datadog", color: "#632CA6" },

@@ -182,7 +182,7 @@
 
 /* ── Filter Sidebar ── */
 .filter-sidebar {
-  width: 260px;
+  width: 268px;
   flex-shrink: 0;
   position: sticky;
   top: 72px; /* below nav + heads */
@@ -318,8 +318,8 @@
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  padding: 0 0.6rem;
+  gap: 0.3rem;
+  padding: 0 0.5rem;
 }
 
 .filter-chips-wrapper--open .filter-chips {
@@ -332,8 +332,8 @@
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.35rem 0.7rem;
+  gap: 0.25rem;
+  padding: 0.32rem 0.58rem;
   background: #f1f5f9;
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
