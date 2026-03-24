@@ -10,11 +10,11 @@
   --text-muted: #94a3b8;
   --accent: #6366f1;
   --accent-light: #e0e7ff;
-  --accent-lighter: #eef2ff;
-  --teal: #14b8a6;
-  --teal-light: #ccfbf1;
-  --pink: #ec4899;
-  --pink-light: #fce7f3;
+  --accent-lighter: #DCE7F3;
+  --teal: #e8742a;
+  --teal-light: #F3E9DC;
+  --pink: #14b8a6;
+  --pink-light: #DDF3EE;
   --amber: #f59e0b;
   --amber-light: #fef3c7;
   --border: #e2e8f0;
@@ -36,7 +36,7 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  padding: 0.75rem clamp(1.5rem, 5vw, 4rem);
+  padding: 0.75rem clamp(1.5rem, 5vw, 4rem) 1.5rem;
 }
 
 .page > * {
@@ -161,6 +161,12 @@
    Skills (filter sidebar) 
    ═══════════════════════════════════════════════ */
 
+.tl-toggle-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0;
+}
+
 /* Combined layout: sidebar + timeline */
 .tl-layout {
   display: flex;
@@ -194,7 +200,7 @@
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0;
   user-select: none;
 }
 
@@ -362,7 +368,6 @@
   grid-template-columns: 52px 0.28fr 0.44fr 0.28fr;
   z-index: 30;
   background: rgba(247, 248, 252, 0.92);
-  border-bottom: 2px solid var(--border);
   border-radius: var(--radius) var(--radius) 0 0;
 }
 
@@ -374,11 +379,12 @@
   font-weight: 700;
   text-align: center;
   border-left: 2px solid var(--border);
+  border-bottom: 2px dashed #b0bec5;
 }
 
-.pt-head--edu { color: #0f766e; background: #f0fdfa; }
-.pt-head--work { color: #4338ca; background: var(--accent-lighter); }
-.pt-head--vol  { color: #9d174d; background: #fdf2f8; }
+.pt-head--edu { color: #9a3c0f; background: #F3E9DC; }
+.pt-head--work { color: #4338ca; background: #DCE7F3; }
+.pt-head--vol  { color: #0f766e; background: #DDF3EE; }
 
 /* ── Time grid ── */
 .pt-grid {
@@ -405,7 +411,7 @@
   right: 0;
   height: 1px;
   background: var(--border);
-  opacity: 1;
+  transform: translateZ(0);
 }
 
 /* ── Year axis ── */
@@ -729,8 +735,8 @@
 }
 
 .pt-cat-badge--work      { background: var(--accent-lighter); color: #4338ca; }
-.pt-cat-badge--education  { background: var(--teal-light); color: #0f766e; }
-.pt-cat-badge--volunteer  { background: var(--pink-light); color: #9d174d; }
+.pt-cat-badge--education  { background: var(--teal-light); color: #9a3c0f; }
+.pt-cat-badge--volunteer  { background: var(--pink-light); color: #0f766e; }
 .pt-cat-badge--break      { background: #f1f5f9; color: var(--text-secondary); }
 
 /* ═══════════════════════════════════════════════
@@ -740,11 +746,11 @@
   display: inline-block;
   padding: 0.22rem 0.65rem;
   background: var(--teal-light);
-  border: 1px solid #99f6e4;
+  border: 1px solid #fdd0a8;
   border-radius: var(--radius-pill);
   font-size: 0.74rem;
   font-weight: 600;
-  color: #0f766e;
+  color: #9a3c0f;
   margin-top: 0.5rem;
   width: fit-content;
 }
@@ -764,8 +770,8 @@
 }
 
 .skill-pill--work      { background: var(--accent-lighter); border-color: var(--accent-light); color: #4338ca; }
-.skill-pill--education { background: var(--teal-light); border-color: #99f6e4; color: #0f766e; }
-.skill-pill--volunteer { background: var(--pink-light); border-color: #fbcfe8; color: #9d174d; }
+.skill-pill--education { background: var(--teal-light); border-color: #fdd0a8; color: #9a3c0f; }
+.skill-pill--volunteer { background: var(--pink-light); border-color: #99f6e4; color: #0f766e; }
 .skill-pill--break     { background: var(--amber-light); border-color: #fde68a; color: #92400e; }
 
 /* ═══════════════════════════════════════════════
@@ -822,8 +828,8 @@
 
 .pm-card--work      { border-left-color: var(--accent); }
 .pm-card--break     { border-left-color: var(--text-muted); background: var(--bg); }
-.pm-card--education { border-left-color: var(--teal); background: #f0fdfa; }
-.pm-card--volunteer { border-left-color: var(--pink); background: #fdf2f8; }
+.pm-card--education { border-left-color: var(--teal); background: #F3E9DC; }
+.pm-card--volunteer { border-left-color: var(--pink); background: #DDF3EE; }
 
 .pm-period {
   font-size: 0.74rem;
