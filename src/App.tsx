@@ -49,14 +49,23 @@ const POPOVER_GAP = 12;
 
 type Pos = TimelineEntry & { top: number; h: number; sub: number };
 
+/** Snap a parsed date to month boundary for pixel-perfect alignment. */
+const snap = (d: { y: number; m: number; d: number }) => {
+  if (d.d >= 28) {
+    const m = d.m + 1;
+    return m > 12 ? { y: d.y + 1, m: 1, d: 1 } : { y: d.y, m, d: 1 };
+  }
+  return { ...d, d: 1 };
+};
+
 /** Absolutely-position entries within a lane, detecting overlaps. */
 function layout(entries: TimelineEntry[]): Pos[] {
   const arr: Pos[] = entries.map((e) => {
-    const s = ym(e.startDate);
-    const end = e.endDate === 'present' ? NOW : ym(e.endDate);
-    const unclampedTop = mDiff(end, NOW) * PPM;
+    const s = snap(ym(e.startDate));
+    const end = e.endDate === 'present' ? NOW : snap(ym(e.endDate));
+    const unclampedTop = Math.round(mDiff(end, NOW) * PPM);
     const top = Math.max(0, unclampedTop);
-    const h = mDiff(s, end) * PPM - (top - unclampedTop);
+    const h = Math.round(mDiff(s, end) * PPM) - (top - unclampedTop);
     return { ...e, top, h, sub: 0 };
   });
   // Sort by top (end date), then longer bars first so they get sub=0 priority

@@ -55,7 +55,7 @@
 }
 
 .page > .nav {
-  max-width: 520px;
+  max-width: 460px;
   position: sticky;
   top: 0.25rem;
 }
@@ -111,7 +111,7 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .nav-links a {
@@ -370,7 +370,6 @@
   grid-template-columns: 52px 0.28fr 0.44fr 0.28fr;
   z-index: 30;
   background: rgba(247, 248, 252, 0.92);
-  border-radius: var(--radius) var(--radius) 0 0;
 }
 
 .pt-heads--no-vol {
@@ -388,9 +387,10 @@
   border-bottom: 2px dashed #b0bec5;
 }
 
-.pt-head--edu { color: #9a3c0f; background: #F3E9DC; }
+.pt-head--edu { color: #9a3c0f; background: #F3E9DC; border-top-left-radius: 10px; }
 .pt-head--work { color: #4338ca; background: #DCE7F3; }
-.pt-head--vol  { color: #0f766e; background: #DDF3EE; }
+.pt-head--vol  { color: #0f766e; background: #DDF3EE; border-top-right-radius: 10px; }
+.pt-heads--no-vol .pt-head--work { border-top-right-radius: 10px; }
 
 /* ── Time grid ── */
 .pt-grid {
@@ -450,6 +450,14 @@
   border-left: 2px solid var(--border);
 }
 
+/* Round outer edges of first and last data lanes */
+.pt-lane:first-of-type {
+  border-bottom-left-radius: 10px;
+}
+.pt-lane:last-of-type {
+  border-bottom-right-radius: 10px;
+}
+
 /* ── Bars ── */
 .pt-bar {
   position: absolute;
@@ -459,7 +467,7 @@
   padding: 0.4rem 0.7rem;
   box-sizing: border-box;
   cursor: pointer;
-  outline: none;
+  outline: 1px solid var(--bg);
   z-index: 1;
   display: flex;
   flex-direction: column;
