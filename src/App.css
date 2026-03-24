@@ -701,8 +701,9 @@
 
 .pt-detail-skills {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
   margin-top: 1rem;
 }
 
@@ -795,6 +796,67 @@
 .skill-pill--volunteer { background: var(--pink-light); border-color: #99f6e4; color: #0f766e; }
 .skill-pill--break     { background: var(--amber-light); border-color: #fde68a; color: #92400e; }
 
+.experience-skills {
+  position: relative;
+  width: 100%;
+}
+
+.experience-skills--interactive {
+  cursor: pointer;
+}
+
+.experience-skills--interactive:focus-visible {
+  outline: 2px solid var(--border-hover);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.experience-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.experience-skills-list--pill { gap: 0.4rem; }
+.experience-skills-list--icon { gap: 0.35rem; }
+
+.experience-skills-list--collapsed {
+  max-height: var(--experience-skills-collapsed-height);
+  overflow: hidden;
+}
+
+.experience-skills-list--measure {
+  position: absolute;
+  inset: 0 auto auto 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
+  width: 100%;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.experience-skills-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-muted);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.experience-skills-ellipsis--pill {
+  font-size: 0.92rem;
+  padding: 0.28rem 0 0.28rem 0.08rem;
+}
+
+.experience-skills-ellipsis--icon {
+  min-height: 1.5rem;
+  font-size: 1rem;
+  padding-left: 0.05rem;
+}
+
 /* ═══════════════════════════════════════════════
    Tech icon (light theme)
    ═══════════════════════════════════════════════ */
@@ -878,8 +940,9 @@
 
 .pm-skills {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
   margin-top: 0.5rem;
 }
 

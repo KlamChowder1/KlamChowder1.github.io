@@ -8,6 +8,7 @@ import {
   formatPeriod,
 } from "./data/experience";
 import type { TimelineEntry, TimelineCategory } from "./data/experience";
+import { ExperienceSkills } from "./components/ExperienceSkills";
 import { TechIcon } from "./components/TechIcon";
 
 /** Get favicon URLs for a given website URL (primary → fallback chain) */
@@ -399,18 +400,12 @@ function App() {
                     <span className="pt-distinction">{selected.badge}</span>
                   )}
 
-                  {selected.skills && selected.skills.length > 0 && (
-                    <div className="pt-detail-skills">
-                      {selected.skills.map((s) => (
-                        <span
-                          key={s}
-                          className={`skill-pill skill-pill--${selected.category}`}
-                        >
-                          <TechIcon name={s} size="sm" />
-                          {s}
-                        </span>
-                      ))}
-                    </div>
+                  {selected.skills && (
+                    <ExperienceSkills
+                      skills={selected.skills}
+                      category={selected.category}
+                      className="pt-detail-skills"
+                    />
                   )}
 
                   {selected.highlights.length > 0 && (
@@ -510,14 +505,13 @@ function App() {
               {entry.badge && (
                 <span className="pt-distinction">{entry.badge}</span>
               )}
-              {entry.category !== 'education' && entry.skills && entry.skills.length > 0 && (
-                <div className="pm-skills">
-                  {entry.skills.map((s) => (
-                    <span key={s} className="pm-skill-icon" role="img" aria-label={s}>
-                      <TechIcon name={s} size="sm" />
-                    </span>
-                  ))}
-                </div>
+              {entry.category !== 'education' && entry.skills && (
+                <ExperienceSkills
+                  skills={entry.skills}
+                  category={entry.category}
+                  className="pm-skills"
+                  mode="icon"
+                />
               )}
               {entry.highlights.length > 0 && (
                 <ul className="pm-highlights">

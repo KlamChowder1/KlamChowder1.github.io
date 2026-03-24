@@ -85,7 +85,26 @@ export const technicalSkills: Record<string, string[]> = {
   ],
 };
 
-export const timelineEntries: TimelineEntry[] = [
+const skillRank = new Map(
+  Object.values(technicalSkills)
+    .flat()
+    .map((skill, index) => [skill, index] as const)
+);
+
+const orderSkills = (skills: string[]): string[] =>
+  skills
+    .map((skill, index) => ({ skill, index }))
+    .sort((a, b) => {
+      const aRank = skillRank.get(a.skill);
+      const bRank = skillRank.get(b.skill);
+      if (aRank != null && bRank != null) return aRank - bRank;
+      if (aRank != null) return -1;
+      if (bRank != null) return 1;
+      return a.index - b.index;
+    })
+    .map(({ skill }) => skill);
+
+const rawTimelineEntries: TimelineEntry[] = [
   {
     id: 'tetra-tech',
     category: 'work',
@@ -448,6 +467,10 @@ export const timelineEntries: TimelineEntry[] = [
     ],
   },
 ];
+
+export const timelineEntries: TimelineEntry[] = rawTimelineEntries.map((entry) =>
+  entry.skills ? { ...entry, skills: orderSkills(entry.skills) } : entry
+);
 
 export const categoryMeta: Record<
   TimelineCategory,
