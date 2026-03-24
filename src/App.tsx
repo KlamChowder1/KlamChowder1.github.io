@@ -405,7 +405,7 @@ function App() {
         <p id="timeline-help" className="sr-only">
           Timeline grouped by education, work experience, and volunteer. Tab to an experience and press Enter to open its details.
         </p>
-        <div className="tl-layout">
+        <div className={`tl-layout${viewMode === 'software' ? "" : " tl-layout--full"}`}>
           {/* ── Timeline ── */}
           <div className="tl-main">
 
