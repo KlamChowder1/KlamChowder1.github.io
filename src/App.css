@@ -803,11 +803,10 @@
   background: #f8fafc;
   color: var(--tech-icon-color, var(--text-secondary));
   border: 1px solid var(--border);
-  transition: transform 160ms ease, box-shadow 160ms ease;
+  transition: box-shadow 160ms ease;
 }
 
 .tech-icon:hover {
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
