@@ -118,6 +118,17 @@ const entrySummary = (entry: TimelineEntry) =>
     .filter(Boolean)
     .join(", ");
 
+const compareDateDesc = (a: string, b: string) => {
+  if (a === b) return 0;
+  if (a === "present") return -1;
+  if (b === "present") return 1;
+  return Date.parse(b) - Date.parse(a);
+};
+
+const compareEntriesByRecency = (a: TimelineEntry, b: TimelineEntry) =>
+  compareDateDesc(a.endDate, b.endDate) ||
+  compareDateDesc(a.startDate, b.startDate);
+
 /* ═══════════════════════════════════════════════
    App component
    ═══════════════════════════════════════════════ */
@@ -161,10 +172,13 @@ function App() {
   }, [activeSkill, viewMode]);
 
   const mobileEntries = useMemo(() => {
-    if (viewMode !== 'software') return timelineEntries;
-    return timelineEntries.filter(
-      (e) => (e.skills && e.skills.length > 0) || e.category === 'education'
-    );
+    const entries =
+      viewMode !== 'software'
+        ? timelineEntries
+        : timelineEntries.filter(
+            (e) => (e.skills && e.skills.length > 0) || e.category === 'education'
+          );
+    return [...entries].sort(compareEntriesByRecency);
   }, [viewMode]);
 
   const cols = useMemo(
