@@ -129,14 +129,13 @@
   height: 30px;
   border-radius: 8px;
   background: transparent;
-  transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+  transition: background 200ms ease, color 200ms ease;
 }
 
 .nav-social:hover,
 .nav-resume:hover {
   background: rgba(0, 0, 0, 0.06);
   color: var(--text) !important;
-  transform: translateY(-1px);
 }
 
 /* ═══════════════════════════════════════════════
@@ -341,12 +340,11 @@
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--text-secondary);
-  transition: background 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  transition: background 150ms ease, box-shadow 150ms ease;
 }
 
 .filter-chip:hover {
   background: #e2e8f0;
-  transform: translateY(-1px);
 }
 
 .filter-chip--active {
@@ -802,8 +800,8 @@
   width: 2rem;
   height: 2rem;
   border-radius: 10px;
-  background: #f1f5f9;
-  color: var(--text-secondary);
+  background: #f8fafc;
+  color: var(--tech-icon-color, var(--text-secondary));
   border: 1px solid var(--border);
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
@@ -815,11 +813,11 @@
 
 .tech-icon--sm { width: 1.5rem; height: 1.5rem; border-radius: 8px; }
 
-.tech-icon-svg { width: 1.15rem; height: 1.15rem; }
+.tech-icon-svg { display: block; width: 1.15rem; height: 1.15rem; }
 .tech-icon--sm .tech-icon-svg { width: 0.85rem; height: 0.85rem; }
 
-.tech-icon-fallback { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.04em; }
-.tech-icon--sm .tech-icon-fallback { font-size: 0.48rem; }
+.tech-icon-fallback { font-size: 0.52rem; font-weight: 700; letter-spacing: 0.03em; line-height: 1; }
+.tech-icon--sm .tech-icon-fallback { font-size: 0.42rem; }
 
 /* ═══════════════════════════════════════════════
    Mobile Timeline (simple card list)
