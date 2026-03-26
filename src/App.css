@@ -96,7 +96,7 @@
 .page > .page-toggle {
   position: absolute;
   top: 1.75rem;
-  right: calc(clamp(1.5rem, 5vw, 4rem) + 12px);
+  right: calc(clamp(1.5rem, 5vw, 4rem) + 52px);
   width: auto;
   max-width: none;
   z-index: 99;
@@ -252,7 +252,7 @@
 
 .tl-layout--full {
   box-sizing: border-box;
-  padding-right: 12px;
+  padding-right: 52px;
 }
 
 .tl-main {
