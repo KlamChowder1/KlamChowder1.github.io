@@ -1,1 +1,1 @@
-https://KlamChowder1.github.io/Profile/
+https://klamchowder1.github.io/
