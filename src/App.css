@@ -473,13 +473,13 @@
 /* ── Column headers ── */
 .pt-heads {
   display: grid;
-  grid-template-columns: 52px 0.28fr 0.44fr 0.28fr;
+  grid-template-columns: 52px 0.28fr 0.44fr 0.28fr 1px;
   z-index: 30;
   background: rgba(247, 248, 252, 0.92);
 }
 
 .pt-heads--no-vol {
-  grid-template-columns: 52px 0.38fr 0.62fr;
+  grid-template-columns: 52px 0.38fr 0.62fr 1px;
 }
 
 .pt-head-axis { /* spacer for year axis */ }
@@ -506,13 +506,13 @@
 /* ── Time grid ── */
 .pt-grid {
   display: grid;
-  grid-template-columns: 52px 0.28fr 0.44fr 0.28fr;
+  grid-template-columns: 52px 0.28fr 0.44fr 0.28fr 1px;
   position: relative;
   overflow: visible;
 }
 
 .pt-grid--no-vol {
-  grid-template-columns: 52px 0.38fr 0.62fr;
+  grid-template-columns: 52px 0.38fr 0.62fr 1px;
 }
 
 /* ── Gridlines ── */
@@ -539,6 +539,10 @@
 .pt-axis {
   position: relative;
   border-right: 2px solid var(--border);
+}
+
+.pt-edge-right {
+  background: var(--border);
 }
 
 .pt-year {

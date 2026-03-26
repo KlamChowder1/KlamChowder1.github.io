@@ -416,6 +416,7 @@ function App() {
               <div className="pt-head pt-head--edu">Education</div>
               <div className="pt-head pt-head--work">Work Experience</div>
               {viewMode !== 'software' && <div className="pt-head pt-head--vol">Volunteer</div>}
+              <div aria-hidden="true" />
             </div>
 
             {/* Time grid */}
@@ -458,6 +459,9 @@ function App() {
                   ))}
                 </div>
               )}
+
+              {/* Right edge line */}
+              <div className="pt-edge-right" aria-hidden="true" />
 
               {/* ── Inline popover ── */}
               {selected && popoverPos && (
