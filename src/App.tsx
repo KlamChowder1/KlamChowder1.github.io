@@ -177,8 +177,8 @@ function App() {
       viewMode !== 'software'
         ? timelineEntries
         : timelineEntries.filter(
-            (e) => (e.skills && e.skills.length > 0) || e.category === 'education'
-          );
+          (e) => (e.skills && e.skills.length > 0) || e.category === 'education'
+        );
     return [...entries].sort(compareEntriesByRecency);
   }, [viewMode]);
 
@@ -393,165 +393,165 @@ function App() {
 
       <main id="experience-content" className="page-main">
 
-      {/* ══════════════════════════════════════════
+        {/* ══════════════════════════════════════════
           Timeline with Filter Sidebar (Desktop)
          ══════════════════════════════════════════ */}
-      <section
-        id="timeline"
-        className="section section--wide"
-        aria-labelledby="timeline-heading"
-        aria-describedby="timeline-help"
-      >
-        <h2 id="timeline-heading" className="sr-only">Experience timeline</h2>
-        <p id="timeline-help" className="sr-only">
-          Timeline grouped by education, work experience, and volunteer. Tab to an experience and press Enter to open its details.
-        </p>
-        <div className={`tl-layout${viewMode === 'software' ? "" : " tl-layout--full"}`}>
-          {/* ── Timeline ── */}
-          <div className="tl-main">
+        <section
+          id="timeline"
+          className="section section--wide"
+          aria-labelledby="timeline-heading"
+          aria-describedby="timeline-help"
+        >
+          <h2 id="timeline-heading" className="sr-only">Experience timeline</h2>
+          <p id="timeline-help" className="sr-only">
+            Timeline grouped by education, work experience, and volunteer. Tab to an experience and press Enter to open its details.
+          </p>
+          <div className={`tl-layout${viewMode === 'software' ? "" : " tl-layout--full"}`}>
+            {/* ── Timeline ── */}
+            <div className="tl-main">
 
-            {/* Column headers */}
-            <div className={`pt-heads${viewMode === 'software' ? ' pt-heads--no-vol' : ''}`}>
-              <div className="pt-head-axis" />
-              <div className="pt-head pt-head--edu">Education</div>
-              <div className="pt-head pt-head--work">Work Experience</div>
-              {viewMode !== 'software' && <div className="pt-head pt-head--vol">Volunteer</div>}
-              <div aria-hidden="true" />
-            </div>
-
-            {/* Time grid */}
-            <div className={`pt-grid${viewMode === 'software' ? ' pt-grid--no-vol' : ''}`} style={{ height: LANE_H }} ref={gridRef}>
-              {/* Horizontal year gridlines */}
-              <div className="pt-gridlines" aria-hidden="true">
-                {YEARS.map(({ year, top }) => (
-                  <div key={year} className="pt-gl" style={{ top }} />
-                ))}
+              {/* Column headers */}
+              <div className={`pt-heads${viewMode === 'software' ? ' pt-heads--no-vol' : ''}`}>
+                <div className="pt-head-axis" />
+                <div className="pt-head pt-head--edu">Education</div>
+                <div className="pt-head pt-head--work">Work Experience</div>
+                {viewMode !== 'software' && <div className="pt-head pt-head--vol">Volunteer</div>}
+                <div aria-hidden="true" />
               </div>
 
-              {/* Year axis */}
-              <div className="pt-axis" aria-hidden="true">
-                {YEARS.map(({ year, top }) => (
-                  <span key={year} className="pt-year" style={{ top }}>
-                    {year}
-                  </span>
-                ))}
-              </div>
+              {/* Time grid */}
+              <div className={`pt-grid${viewMode === 'software' ? ' pt-grid--no-vol' : ''}`} style={{ height: LANE_H }} ref={gridRef}>
+                {/* Horizontal year gridlines */}
+                <div className="pt-gridlines" aria-hidden="true">
+                  {YEARS.map(({ year, top }) => (
+                    <div key={year} className="pt-gl" style={{ top }} />
+                  ))}
+                </div>
 
-              {/* Education lane */}
-              <div className="pt-lane">
-                {cols.edu.map((e) => (
-                  <Bar key={e.id} e={e} />
-                ))}
-              </div>
+                {/* Year axis */}
+                <div className="pt-axis" aria-hidden="true">
+                  {YEARS.map(({ year, top }) => (
+                    <span key={year} className="pt-year" style={{ top }}>
+                      {year}
+                    </span>
+                  ))}
+                </div>
 
-              {/* Work lane */}
-              <div className="pt-lane">
-                {cols.work.map((e) => (
-                  <Bar key={e.id} e={e} />
-                ))}
-              </div>
-
-              {/* Volunteer lane */}
-              {viewMode !== 'software' && (
+                {/* Education lane */}
                 <div className="pt-lane">
-                  {cols.vol.map((e) => (
+                  {cols.edu.map((e) => (
                     <Bar key={e.id} e={e} />
                   ))}
                 </div>
-              )}
 
-              {/* Right edge line */}
-              <div className="pt-edge-right" aria-hidden="true" />
-
-              {/* ── Inline popover ── */}
-              {selected && popoverPos && (
-                <div
-                  ref={popoverRef}
-                  className={`pt-popover pt-popover--${selected.category}`}
-                  key={selected.id}
-                  id={`detail-panel-${selected.id}`}
-                  role="region"
-                  tabIndex={-1}
-                  aria-labelledby={`detail-title-${selected.id}`}
-                  aria-describedby={`detail-period-${selected.id}`}
-                  style={{ top: popoverPos.top, left: popoverPos.left }}
-                >
-                  <div className="pt-detail-head">
-                    <div>
-                      <span className={`pt-cat-badge pt-cat-badge--${selected.category}`}>
-                        {categoryMeta[selected.category].label}
-                      </span>
-                      <h3 id={`detail-title-${selected.id}`} className="pt-detail-title">{selected.title}</h3>
-                      <p className="pt-detail-sub">
-                        {selected.subtitleUrl ? (
-                          <a
-                            href={selected.subtitleUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            aria-label={`${selected.subtitle} website (opens in a new tab)`}
-                          >
-                            <img
-                              className="pt-detail-logo"
-                              src={faviconChain(selected.subtitleUrl!)[0]}
-                              alt=""
-                              width={18}
-                              height={18}
-                              onError={(e) => {
-                                const img = e.target as HTMLImageElement;
-                                const idx = Number(img.dataset.fbIdx || '0') + 1;
-                                const chain = faviconChain(selected.subtitleUrl!);
-                                if (idx < chain.length) { img.dataset.fbIdx = String(idx); img.src = chain[idx]; }
-                                else img.style.display = 'none';
-                              }}
-                            />
-                            {selected.subtitle} ↗
-                          </a>
-                        ) : (
-                          selected.subtitle
-                        )}
-                      </p>
-                      <p id={`detail-period-${selected.id}`} className="pt-detail-period">{formatPeriod(selected.startDate, selected.endDate)}</p>
-                    </div>
-                    <button
-                      className="pt-detail-close"
-                      onClick={() => closeDetails(true)}
-                      aria-label={`Close details for ${selected.title}`}
-                    >
-                      ✕
-                    </button>
-                  </div>
-
-                  {selected.badge && (
-                    <span className="pt-distinction">{selected.badge}</span>
-                  )}
-
-                  {selected.skills && (
-                    <ExperienceSkills
-                      skills={selected.skills}
-                      category={selected.category}
-                      className="pt-detail-skills"
-                      label={`${selected.title} skills`}
-                    />
-                  )}
-
-                  {selected.highlights.length > 0 && (
-                    <ul className="pt-detail-highlights">
-                      {selected.highlights.map((h, i) => (
-                        <li key={i}>{h}</li>
-                      ))}
-                    </ul>
-                  )}
+                {/* Work lane */}
+                <div className="pt-lane">
+                  {cols.work.map((e) => (
+                    <Bar key={e.id} e={e} />
+                  ))}
                 </div>
-              )}
-            </div>
-          </div>{/* end tl-main */}
 
-          {/* ── Filter Sidebar (only in software mode) ── */}
-          {viewMode === 'software' && (
-            <aside className="filter-sidebar" aria-label="Skill filters">
-              <div className="filter-sidebar-inner">
-                {Object.entries(technicalSkills).map(([category, skills], categoryIndex) => (
-                  <div key={category} className="filter-group">
+                {/* Volunteer lane */}
+                {viewMode !== 'software' && (
+                  <div className="pt-lane">
+                    {cols.vol.map((e) => (
+                      <Bar key={e.id} e={e} />
+                    ))}
+                  </div>
+                )}
+
+                {/* Right edge line */}
+                <div className="pt-edge-right" aria-hidden="true" />
+
+                {/* ── Inline popover ── */}
+                {selected && popoverPos && (
+                  <div
+                    ref={popoverRef}
+                    className={`pt-popover pt-popover--${selected.category}`}
+                    key={selected.id}
+                    id={`detail-panel-${selected.id}`}
+                    role="region"
+                    tabIndex={-1}
+                    aria-labelledby={`detail-title-${selected.id}`}
+                    aria-describedby={`detail-period-${selected.id}`}
+                    style={{ top: popoverPos.top, left: popoverPos.left }}
+                  >
+                    <div className="pt-detail-head">
+                      <div>
+                        <span className={`pt-cat-badge pt-cat-badge--${selected.category}`}>
+                          {categoryMeta[selected.category].label}
+                        </span>
+                        <h3 id={`detail-title-${selected.id}`} className="pt-detail-title">{selected.title}</h3>
+                        <p className="pt-detail-sub">
+                          {selected.subtitleUrl ? (
+                            <a
+                              href={selected.subtitleUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              aria-label={`${selected.subtitle} website (opens in a new tab)`}
+                            >
+                              <img
+                                className="pt-detail-logo"
+                                src={faviconChain(selected.subtitleUrl!)[0]}
+                                alt=""
+                                width={18}
+                                height={18}
+                                onError={(e) => {
+                                  const img = e.target as HTMLImageElement;
+                                  const idx = Number(img.dataset.fbIdx || '0') + 1;
+                                  const chain = faviconChain(selected.subtitleUrl!);
+                                  if (idx < chain.length) { img.dataset.fbIdx = String(idx); img.src = chain[idx]; }
+                                  else img.style.display = 'none';
+                                }}
+                              />
+                              {selected.subtitle} ↗
+                            </a>
+                          ) : (
+                            selected.subtitle
+                          )}
+                        </p>
+                        <p id={`detail-period-${selected.id}`} className="pt-detail-period">{formatPeriod(selected.startDate, selected.endDate)}</p>
+                      </div>
+                      <button
+                        className="pt-detail-close"
+                        onClick={() => closeDetails(true)}
+                        aria-label={`Close details for ${selected.title}`}
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    {selected.badge && (
+                      <span className="pt-distinction">{selected.badge}</span>
+                    )}
+
+                    {selected.skills && (
+                      <ExperienceSkills
+                        skills={selected.skills}
+                        category={selected.category}
+                        className="pt-detail-skills"
+                        label={`${selected.title} skills`}
+                      />
+                    )}
+
+                    {selected.highlights.length > 0 && (
+                      <ul className="pt-detail-highlights">
+                        {selected.highlights.map((h, i) => (
+                          <li key={i}>{h}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>{/* end tl-main */}
+
+            {/* ── Filter Sidebar (only in software mode) ── */}
+            {viewMode === 'software' && (
+              <aside className="filter-sidebar" aria-label="Skill filters">
+                <div className="filter-sidebar-inner">
+                  {Object.entries(technicalSkills).map(([category, skills], categoryIndex) => (
+                    <div key={category} className="filter-group">
                       <button
                         ref={categoryIndex === 0 ? firstFilterGroupRef : undefined}
                         className={`filter-group-head${openCategories[category] ? " filter-group-head--open" : ""}`}
@@ -562,107 +562,107 @@ function App() {
                         <span>{category}</span>
                         <svg className="filter-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9" /></svg>
                       </button>
-                    <div id={`skill-group-${toId(category)}`} className={`filter-chips-wrapper${openCategories[category] ? " filter-chips-wrapper--open" : ""}`}>
-                      <div className="filter-chips">
-                        {skills.map((skill) => (
-                          <button
-                            key={skill}
-                            className={`filter-chip${activeSkill === skill ? " filter-chip--active" : ""}`}
-                            onClick={() => toggleSkill(skill)}
-                            aria-pressed={activeSkill === skill}
-                          >
-                            <TechIcon name={skill} size="sm" />
-                            {skill}
-                          </button>
-                        ))}
+                      <div id={`skill-group-${toId(category)}`} className={`filter-chips-wrapper${openCategories[category] ? " filter-chips-wrapper--open" : ""}`}>
+                        <div className="filter-chips">
+                          {skills.map((skill) => (
+                            <button
+                              key={skill}
+                              className={`filter-chip${activeSkill === skill ? " filter-chip--active" : ""}`}
+                              onClick={() => toggleSkill(skill)}
+                              aria-pressed={activeSkill === skill}
+                            >
+                              <TechIcon name={skill} size="sm" />
+                              {skill}
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-                {activeSkill && (
-                  <button className="filter-clear" onClick={() => { setActiveSkill(null); closeDetails(); }} aria-label="Clear active skill filter">
-                    Clear filter ✕
-                  </button>
-                )}
-              </div>
-            </aside>
-          )}
+                  ))}
+                  {activeSkill && (
+                    <button className="filter-clear" onClick={() => { setActiveSkill(null); closeDetails(); }} aria-label="Clear active skill filter">
+                      Clear filter ✕
+                    </button>
+                  )}
+                </div>
+              </aside>
+            )}
 
-        </div>{/* end tl-layout */}
-      </section>
+          </div>{/* end tl-layout */}
+        </section>
 
-      {/* ══════════════════════════════════════════
+        {/* ══════════════════════════════════════════
           Mobile Timeline (simple list)
          ══════════════════════════════════════════ */}
-      <section className="section pm-section" aria-labelledby="experience-list-heading">
-        <h2 id="experience-list-heading" className="sr-only">Experience list</h2>
-        <div className="pm-list">
-          {mobileEntries.map((entry) => (
-            <article
-              key={entry.id}
-              className={`pm-card pm-card--${entry.category}`}
-              tabIndex={0}
-              aria-labelledby={`pm-title-${entry.id}`}
-              aria-describedby={[
-                `pm-category-${entry.id}`,
-                `pm-period-${entry.id}`,
-                entry.subtitle ? `pm-sub-${entry.id}` : "",
-                entry.badge ? `pm-badge-${entry.id}` : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-            >
-              <span id={`pm-category-${entry.id}`} className={`pt-cat-badge pt-cat-badge--${entry.category}`}>
-                {categoryMeta[entry.category].label}
-              </span>
-              <span id={`pm-period-${entry.id}`} className="pm-period">{formatPeriod(entry.startDate, entry.endDate)}</span>
-              <h3 id={`pm-title-${entry.id}`} className="pm-title">{entry.title}</h3>
-              <p id={`pm-sub-${entry.id}`} className="pm-sub">
-                {entry.subtitleUrl ? (
-                  <a href={entry.subtitleUrl} target="_blank" rel="noreferrer" aria-label={`${entry.subtitle} website (opens in a new tab)`}>
-                    <img
-                      className="pt-detail-logo"
-                      src={faviconChain(entry.subtitleUrl!)[0]}
-                      alt=""
-                      width={16}
-                      height={16}
-                      onError={(e) => {
-                        const img = e.target as HTMLImageElement;
-                        const idx = Number(img.dataset.fbIdx || '0') + 1;
-                        const chain = faviconChain(entry.subtitleUrl!);
-                        if (idx < chain.length) { img.dataset.fbIdx = String(idx); img.src = chain[idx]; }
-                        else img.style.display = 'none';
-                      }}
-                    />
-                    {entry.subtitle} ↗
-                  </a>
-                ) : (
-                  entry.subtitle
+        <section className="section pm-section" aria-labelledby="experience-list-heading">
+          <h2 id="experience-list-heading" className="sr-only">Experience list</h2>
+          <div className="pm-list">
+            {mobileEntries.map((entry) => (
+              <article
+                key={entry.id}
+                className={`pm-card pm-card--${entry.category}`}
+                tabIndex={0}
+                aria-labelledby={`pm-title-${entry.id}`}
+                aria-describedby={[
+                  `pm-category-${entry.id}`,
+                  `pm-period-${entry.id}`,
+                  entry.subtitle ? `pm-sub-${entry.id}` : "",
+                  entry.badge ? `pm-badge-${entry.id}` : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+              >
+                <span id={`pm-category-${entry.id}`} className={`pt-cat-badge pt-cat-badge--${entry.category}`}>
+                  {categoryMeta[entry.category].label}
+                </span>
+                <span id={`pm-period-${entry.id}`} className="pm-period">{formatPeriod(entry.startDate, entry.endDate)}</span>
+                <h3 id={`pm-title-${entry.id}`} className="pm-title">{entry.title}</h3>
+                <p id={`pm-sub-${entry.id}`} className="pm-sub">
+                  {entry.subtitleUrl ? (
+                    <a href={entry.subtitleUrl} target="_blank" rel="noreferrer" aria-label={`${entry.subtitle} website (opens in a new tab)`}>
+                      <img
+                        className="pt-detail-logo"
+                        src={faviconChain(entry.subtitleUrl!)[0]}
+                        alt=""
+                        width={16}
+                        height={16}
+                        onError={(e) => {
+                          const img = e.target as HTMLImageElement;
+                          const idx = Number(img.dataset.fbIdx || '0') + 1;
+                          const chain = faviconChain(entry.subtitleUrl!);
+                          if (idx < chain.length) { img.dataset.fbIdx = String(idx); img.src = chain[idx]; }
+                          else img.style.display = 'none';
+                        }}
+                      />
+                      {entry.subtitle} ↗
+                    </a>
+                  ) : (
+                    entry.subtitle
+                  )}
+                </p>
+                {entry.badge && (
+                  <span id={`pm-badge-${entry.id}`} className="pt-distinction">{entry.badge}</span>
                 )}
-              </p>
-              {entry.badge && (
-                <span id={`pm-badge-${entry.id}`} className="pt-distinction">{entry.badge}</span>
-              )}
-              {entry.category !== 'education' && entry.skills && (
-                <ExperienceSkills
-                  skills={entry.skills}
-                  category={entry.category}
-                  className="pm-skills"
-                  mode="icon"
-                  label={`${entry.title} skills`}
-                />
-              )}
-              {entry.highlights.length > 0 && (
-                <ul className="pm-highlights">
-                  {entry.highlights.map((h, i) => (
-                    <li key={i}>{h}</li>
-                  ))}
-                </ul>
-              )}
-            </article>
-          ))}
-        </div>
-      </section>
+                {entry.category !== 'education' && entry.skills && (
+                  <ExperienceSkills
+                    skills={entry.skills}
+                    category={entry.category}
+                    className="pm-skills"
+                    mode="icon"
+                    label={`${entry.title} skills`}
+                  />
+                )}
+                {entry.highlights.length > 0 && (
+                  <ul className="pm-highlights">
+                    {entry.highlights.map((h, i) => (
+                      <li key={i}>{h}</li>
+                    ))}
+                  </ul>
+                )}
+              </article>
+            ))}
+          </div>
+        </section>
       </main>
 
     </div>
