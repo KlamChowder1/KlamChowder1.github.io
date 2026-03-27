@@ -88,7 +88,7 @@ export const technicalSkills: Record<string, string[]> = {
 const skillRank = new Map(
   Object.values(technicalSkills)
     .flat()
-    .map((skill, index) => [skill, index] as const)
+    .map((skill, index) => [skill, index] as const),
 );
 
 const orderSkills = (skills: string[]): string[] =>
@@ -205,7 +205,7 @@ const rawTimelineEntries: TimelineEntry[] = [
     title: 'Career Break',
     highlights: [
       "Took a break after being laid off during Shopify's 20% reduction in force.",
-      'Helped rebuild a backcountry hut with the UBC Varsity Outdoors Club.',
+      'Contributed to the rebuild of the Brian Waddington Hut with the UBC Varsity Outdoors Club.',
       'Backpacked the West Coast Trail and Sunshine Coast Trail, bike toured the Southern Gulf Islands, and ski toured in the Rockies.',
     ],
   },
@@ -350,7 +350,7 @@ const rawTimelineEntries: TimelineEntry[] = [
     startDate: '2017-09-01',
     endDate: '2019-05-31',
     title: 'Diploma (Biotechnology)',
-    subtitle: 'BCIT',
+    subtitle: 'British Columbia Institute of Technology',
     subtitleUrl: 'https://www.bcit.ca/',
     highlights: [
       'WHMIS Certified 2019',
@@ -468,8 +468,9 @@ const rawTimelineEntries: TimelineEntry[] = [
   },
 ];
 
-export const timelineEntries: TimelineEntry[] = rawTimelineEntries.map((entry) =>
-  entry.skills ? { ...entry, skills: orderSkills(entry.skills) } : entry
+export const timelineEntries: TimelineEntry[] = rawTimelineEntries.map(
+  (entry) =>
+    entry.skills ? { ...entry, skills: orderSkills(entry.skills) } : entry,
 );
 
 export const categoryMeta: Record<
