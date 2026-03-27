@@ -223,10 +223,21 @@ function App() {
     if (!gridEl) return;
     const barRect = barEl.getBoundingClientRect();
     const gridRect = gridEl.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const popoverW = Math.min(POPOVER_W, vw - POPOVER_GAP * 2);
     let top = barRect.top - gridRect.top;
     let left = barRect.right - gridRect.left + POPOVER_GAP;
-    if (left + POPOVER_W > gridRect.width) {
-      left = barRect.left - gridRect.left - POPOVER_W - POPOVER_GAP;
+    // If it doesn't fit on the right, try the left
+    if (left + popoverW > gridRect.width) {
+      left = barRect.left - gridRect.left - popoverW - POPOVER_GAP;
+    }
+    // Clamp horizontally so popover stays within the viewport
+    const leftScreen = gridRect.left + left;
+    if (leftScreen + popoverW > vw - POPOVER_GAP) {
+      left = left - (leftScreen + popoverW - (vw - POPOVER_GAP));
+    }
+    if (gridRect.left + left < POPOVER_GAP) {
+      left = POPOVER_GAP - gridRect.left;
     }
     // Clamp vertically so popover stays within the viewport
     const viewportBottom = window.innerHeight;
